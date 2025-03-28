@@ -11,7 +11,6 @@ const baseInstance = axios.create({
 })
 
 const errorApiHandler = (error: any) => {
-  console.log('🚀 ~ errorApiHandler ~ error:', error)
   let tempSummary = ``
   let tempDetail = ``
   if (error.response.data.error) {

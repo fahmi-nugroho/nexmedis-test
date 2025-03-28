@@ -18,10 +18,7 @@ export const useAuthStore = defineStore('auth', {
         life: 3000,
       })
       const response = await apiBasePost('/login', payload)
-
-      // localStorage.setItem('access_token', `Bearer ${response.payload.token}`)
-      // localStorage.setItem('permission', JSON.stringify(response.payload.permissions))
-      // localStorage.setItem('user', JSON.stringify(response.payload.user))
+      localStorage.setItem('token', `Bearer ${response.token}`)
 
       return response
     },

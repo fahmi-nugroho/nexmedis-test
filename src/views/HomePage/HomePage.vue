@@ -8,7 +8,9 @@ export default {
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/User'
 import type { DataTablePageEvent } from 'primevue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const userStore = useUserStore()
 
 type TListUsers = {
@@ -26,7 +28,6 @@ onMounted(async () => {
 const page = ref<number>(0)
 const fetchUser = async () => {
   const response = await userStore.listUser(page.value + 1)
-  console.log('🚀 ~ fetchUser ~ response:', response)
   listDataUsers.value = response.data
   totalData.value = response.total
 }
@@ -73,16 +74,29 @@ const deleteUser = async () => {
   await fetchUser()
   dialogHapus.value = false
 }
+
+const logout = () => {
+  localStorage.removeItem('token')
+  router.push('login')
+}
 </script>
 
 <template>
   <div>
-    <div class="flex justify-end !mb-4">
+    <div class="flex justify-between !mb-4">
       <Button
         @click="showDialog('create')"
         class="ml-auto"
         label="Tambah"
         icon="pi pi-plus"
+        iconPos="right"
+      />
+      <Button
+        @click="logout()"
+        class="ml-auto"
+        label="Logout"
+        severity="danger"
+        icon="pi pi-sign-out"
         iconPos="right"
       />
     </div>
@@ -155,7 +169,7 @@ const deleteUser = async () => {
         Apakah anda ingin menghapus data ini?
       </span>
       <div class="flex justify-end gap-2 !mt-2">
-        <Button type="button" label="Hapus" @click="deleteUser"></Button>
+        <Button type="button" label="Hapus" severity="danger" @click="deleteUser"></Button>
       </div>
     </Dialog>
   </div>
