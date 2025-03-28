@@ -25,7 +25,6 @@ const login = async () => {
     if (response.token) {
       router.push('homepage')
     }
-    console.log('🚀 ~ login ~ response:', response)
   } catch (error) {
     console.error(error)
   }

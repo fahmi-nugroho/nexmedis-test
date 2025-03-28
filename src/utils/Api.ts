@@ -48,6 +48,11 @@ baseInstance.interceptors.request.use(
 const apiBasePost = async (url: string, data: object) => {
   try {
     let response = await baseInstance.post(url, data)
+    app.config.globalProperties.$toast.add({
+      severity: 'success',
+      summary: 'Crete completed',
+      life: 3000,
+    })
     return response.data
   } catch (error) {
     errorApiHandler(error)
@@ -56,7 +61,7 @@ const apiBasePost = async (url: string, data: object) => {
 const apiBaseGet = async (url: string, data: object) => {
   try {
     let response = await baseInstance.get(url, data)
-    return response.data.data
+    return response.data
   } catch (error) {
     errorApiHandler(error)
   }
@@ -66,7 +71,7 @@ const apiBasePut = async (url: string, data: object) => {
     let response = await baseInstance.put(url, data)
     app.config.globalProperties.$toast.add({
       severity: 'success',
-      summary: response.data.message,
+      summary: 'Update completed',
       life: 3000,
     })
     return response.data
@@ -79,7 +84,7 @@ const apiBaseDelete = async (url: string, data: object) => {
     let response = await baseInstance.delete(url, data)
     app.config.globalProperties.$toast.add({
       severity: 'success',
-      summary: response.data.message,
+      summary: 'Delete completed',
       life: 3000,
     })
     return response.data

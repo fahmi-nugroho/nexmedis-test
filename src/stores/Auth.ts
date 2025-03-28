@@ -2,7 +2,7 @@ import { apiBasePost } from '@/utils/Api'
 import { defineStore } from 'pinia'
 import { app } from '@/main'
 
-type LoginPayload = {
+type TLoginPayload = {
   email: string
   password: string
 }
@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({}),
   getters: {},
   actions: {
-    async loginApi(payload: LoginPayload) {
+    async loginApi(payload: TLoginPayload) {
       app.config.globalProperties.$toast.add({
         severity: 'success',
         summary: 'Login Success',
